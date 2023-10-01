@@ -15,15 +15,15 @@ select avg(creditLimit) as average, max(creditLimit) as maksimal, min(creditLimi
 ## Tampilkan jumlah orderNumber tiap customer. Urutkan berdasarkan jumlah orderNumber dari besar ke kecil
 select customers.customerName, count(orders.orderNumber) as totalorder 
 	from customers 
-	inner join orders on customers.customerNumber = orders.customerNumber 
+	left join orders on customers.customerNumber = orders.customerNumber 
 	group by customers.customerName 
 	order by totalorder desc;
 
 ## Tampilkan total nominal pesanan (quantityOrdered x priceEach) per customer. Urutkan dari besar ke kecil
 select customers.customerName, sum(orderdetails.quantityOrdered * orderdetails.priceEach) as totalnominal 
 	from customers 
-	inner join orders on customers.customerNumber = orders.customerNumber
-	inner join orderdetails on orders.orderNumber = orderdetails.orderNumber
+	left join orders on customers.customerNumber = orders.customerNumber
+	left join orderdetails on orders.orderNumber = orderdetails.orderNumber
 	group by customers.customerName 
 	order by totalnominal desc;
 	
